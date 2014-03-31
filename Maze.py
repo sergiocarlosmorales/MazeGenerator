@@ -18,7 +18,7 @@ class ChillMazeTile:
         elif location.capitalize() == "Top":
             self._wallTop = False
         else:
-            raise ValueError("Invalid wall location provided: {}"
+            raise ValueError("Invalid wall location provided:{}"
                              .format(location))
 
 
