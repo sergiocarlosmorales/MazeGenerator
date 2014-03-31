@@ -32,8 +32,8 @@ class ChillMazeTile:
             self._wall_bottom = new_value
         elif location.capitalize() == "Left":
             self._wall_left = new_value
-        elif location.capitalize() == "Top":
-            self._wall_top = new_value
+        elif location.capitalize() == "Right":
+            self._wall_right = new_value
         else:
             raise ValueError("Invalid wall location provided:{}"
                              .format(location))
