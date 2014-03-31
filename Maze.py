@@ -98,6 +98,12 @@ class ChillMaze:
                 column.append(tile)
             self._maze.append(column)
 
+        # Sanity check
+        # TODO: Figure why this check is failing, probably something dumb
+        if (len(self._maze) != self.getHeight() or
+            len(self._maze[0]) != self.getHeight()):
+            raise AssertionError("Dimensions are not matching up!")
+
     def has_been_generated(self):
         """Determine whether or not this maze has been generated and has tiles
             Returns: bool
