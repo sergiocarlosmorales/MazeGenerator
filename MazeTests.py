@@ -43,9 +43,9 @@ class MazeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             ChillMaze(-1, 5)
 
-    def test_maze_initializes_not_generated(self):
+    def test_maze_initializes_generated(self):
         maze = ChillMaze(3, 4)
-        self.assertFalse(maze.has_been_generated())
+        self.assertTrue(maze.has_been_generated())
 
     def test_maze_returns_correct_dimensions(self):
         intended_width = 3
@@ -53,7 +53,6 @@ class MazeTests(unittest.TestCase):
         maze = ChillMaze(3, 5)
         self.assertTrue(maze.getWidth() == intended_width)
         self.assertTrue(maze.getHeight() == intended_height)
-
 
 
 def main():

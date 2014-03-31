@@ -63,7 +63,7 @@ class ChillMazeTile:
 class ChillMaze:
     _width = None
     _height = None
-    _generated = False
+    _maze = []
 
     def __init__(self, width, height):
         """Initialization logic for the maze
@@ -87,13 +87,34 @@ class ChillMaze:
 
         self._width = width
         self._height = height
-        self._generated = False
+
+        # Time to actually initialize the tiles
+        # Lets go through each row
+        for row_number in range(height):
+            # Then create all columns
+            column = []
+            for column_number in range(width):
+                tile = ChillMazeTile()
+                column.append(tile)
+            self._maze.append(column)
 
     def has_been_generated(self):
-        return self._generated
+        """Determine whether or not this maze has been generated and has tiles
+            Returns: bool
+        """
+        if len(self._maze) > 0 and len(self._maze[0]) > 0:
+            return True
+        else:
+            return False
 
     def getWidth(self):
+        """Get the width of this maze
+            Return: Numeric value of the width
+        """
         return self._width
 
     def getHeight(self):
+        """Get the height of this maze
+            Return: Numeric value of the height
+        """
         return self._height
