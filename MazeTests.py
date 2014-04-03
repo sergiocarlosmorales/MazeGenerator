@@ -29,7 +29,7 @@ class TileTests(unittest.TestCase):
 
 class MazeTests(unittest.TestCase):
     def test_maze_instantiates(self):
-        maze = ChillMaze(3, 3)
+        ChillMaze(3, 3)
 
     def test_error_for_non_numeric_initialization(self):
         with self.assertRaises(ValueError):
@@ -50,9 +50,9 @@ class MazeTests(unittest.TestCase):
     def test_maze_returns_correct_dimensions(self):
         intended_width = 3
         intended_height = 5
-        maze = ChillMaze(3, 5)
-        self.assertTrue(maze.getWidth() == intended_width)
-        self.assertTrue(maze.getHeight() == intended_height)
+        maze = ChillMaze(intended_width, intended_height)
+        self.assertTrue(maze.get_width() == intended_width)
+        self.assertTrue(maze.get_height() == intended_height)
 
 
 def main():

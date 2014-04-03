@@ -85,8 +85,10 @@ class ChillMaze:
             raise ValueError("Width and Height must be greater than zero:"
                              "{},{} provided".format(width, height))
 
+        # Initialize data
         self._width = width
         self._height = height
+        self._maze = []
 
         # Time to actually initialize the tiles
         # Lets go through each row
@@ -99,10 +101,19 @@ class ChillMaze:
             self._maze.append(column)
 
         # Sanity check
-        # TODO: Figure why this check is failing, probably something dumb
-        if (len(self._maze) != self.getHeight() or
-            len(self._maze[0]) != self.getHeight()):
-            raise AssertionError("Dimensions are not matching up!")
+        if (len(self._maze) != self.get_height() or
+                len(self._maze[0]) != self.get_width()):
+                    raise AssertionError("Dimensions are not matching up!\n"
+                                         "Actual Width: {actual_width}\n"
+                                         "Actual Height: {actual_height}\n"
+                                         "Intended Width: {intended_width}\n"
+                                         "Intended Height: {intended_height}\n"
+                                         .format(
+                                         actual_width=len(self._maze[0]),
+                                         actual_height=len(self._maze),
+                                         intended_width=width,
+                                         intended_height=height
+                                         ))
 
     def has_been_generated(self):
         """Determine whether or not this maze has been generated and has tiles
@@ -113,13 +124,13 @@ class ChillMaze:
         else:
             return False
 
-    def getWidth(self):
+    def get_width(self):
         """Get the width of this maze
             Return: Numeric value of the width
         """
         return self._width
 
-    def getHeight(self):
+    def get_height(self):
         """Get the height of this maze
             Return: Numeric value of the height
         """
