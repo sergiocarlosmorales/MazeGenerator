@@ -1,5 +1,5 @@
 import unittest
-from Maze import ChillMazeTile, ChillMaze
+from maze import ChillMazeTile, ChillMaze
 
 
 class TileTests(unittest.TestCase):
