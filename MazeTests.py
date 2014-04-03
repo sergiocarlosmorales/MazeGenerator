@@ -4,7 +4,7 @@ from Maze import ChillMazeTile, ChillMaze
 
 class TileTests(unittest.TestCase):
     def test_tile_instantiates(self):
-        tile = ChillMazeTile()
+        ChillMazeTile()
 
     def test_all_walls_are_up_after_creation(self):
         tile = ChillMazeTile()
@@ -43,6 +43,14 @@ class MazeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             ChillMaze(-1, 5)
 
+    def test_error_for_zero_dimension_maze(self):
+        with self.assertRaises(ValueError):
+            ChillMaze(0, 0)
+        with self.assertRaises(ValueError):
+            ChillMaze(3, 0)
+        with self.assertRaises(ValueError):
+            ChillMaze(0, 3)
+
     def test_maze_initializes_generated(self):
         maze = ChillMaze(3, 4)
         self.assertTrue(maze.has_been_generated())
@@ -50,6 +58,12 @@ class MazeTests(unittest.TestCase):
     def test_maze_returns_correct_dimensions(self):
         intended_width = 3
         intended_height = 5
+        maze = ChillMaze(intended_width, intended_height)
+        self.assertTrue(maze.get_width() == intended_width)
+        self.assertTrue(maze.get_height() == intended_height)
+
+        intended_width = 4
+        intended_height = 2
         maze = ChillMaze(intended_width, intended_height)
         self.assertTrue(maze.get_width() == intended_width)
         self.assertTrue(maze.get_height() == intended_height)
