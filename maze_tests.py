@@ -68,6 +68,20 @@ class MazeTests(unittest.TestCase):
         self.assertTrue(maze.get_width() == intended_width)
         self.assertTrue(maze.get_height() == intended_height)
 
+    def test_getting_row_size_equals_width(self):
+        intended_height = 3
+        intended_width = 5
+
+        maze = ChillMaze(intended_width, intended_height)
+        self.assertEqual(intended_width, len(maze.get_row_tiles(0)))
+
+    def test_getting_column_size_equals_height(self):
+        intended_height = 3
+        intended_width = 5
+
+        maze = ChillMaze(intended_width, intended_height)
+        self.assertEqual(intended_height, len(maze.get_column_tiles(0)))
+
 
 def main():
     unittest.main()

@@ -61,9 +61,6 @@ class ChillMazeTile:
 
 
 class ChillMaze:
-    _width = None
-    _height = None
-    _maze = []
 
     def __init__(self, width, height):
         """Initialization logic for the maze
@@ -135,3 +132,24 @@ class ChillMaze:
             Return: Numeric value of the height
         """
         return self._height
+
+    def get_row_tiles(self, index):
+        """Return all tiles on a specific row (horizontal dimension)
+            Params:
+                index integer
+            Returns:
+                List of tiles
+        """
+        return self._maze[index]
+
+    def get_column_tiles(self, index):
+        """Return all tiles from a specific column (vertical dimension)
+            Params:
+                index integer
+            Returns:
+                List of tiles
+        """
+        tiles = []
+        for row in self._maze:
+            tiles.append(row[index])
+        return tiles
