@@ -136,11 +136,18 @@ class ChillMaze:
     def get_row_tiles(self, index):
         """Return all tiles on a specific row (horizontal dimension)
             Params:
-                index integer
+                index: integer
             Returns:
                 List of tiles
+            Raises:
+                IndexError: If supplied index is invalid
         """
-        return self._maze[index]
+        try:
+            tiles = self._maze[index]
+            return tiles
+        except IndexError:
+            raise IndexError("Invalid value, {} not a valid index for a row"
+                             .format(index))
 
     def get_column_tiles(self, index):
         """Return all tiles from a specific column (vertical dimension)
@@ -148,8 +155,24 @@ class ChillMaze:
                 index integer
             Returns:
                 List of tiles
+            Raises:
+                IndexError: If supplied index is invalid
         """
-        tiles = []
-        for row in self._maze:
-            tiles.append(row[index])
-        return tiles
+        try:
+            tiles = []
+            for row in self._maze:
+                tiles.append(row[index])
+            return tiles
+        except IndexError:
+            raise IndexError("Invalid value, {} not a valid index for a column"
+                             .format(index))
+
+    def get_tile_at(self, horizontal_index, vertical_index):
+        row = self.get_row_tiles(vertical_index)
+        try:
+            tile = row[horizontal_index]
+        except IndexError:
+            raise IndexError("Invalid position: {horizontal},{vertical}"
+                             .format(horizontal=horizontal_index,
+                                     vertical=vertical_index
+                                    ))
