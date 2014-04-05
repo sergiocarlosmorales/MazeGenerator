@@ -40,7 +40,7 @@ class MazeAbstractBase:
         return
 
     @abc.abstractmethod
-    def get_row_tiles(self, index):
+    def get_tiles_in_row(self, index):
         """Return all tiles on a specific row (horizontal dimension)
             Params:
                 index: integer
@@ -52,7 +52,7 @@ class MazeAbstractBase:
         return
 
     @abc.abstractmethod
-    def get_column_tiles(self, index):
+    def get_tiles_in_column(self, index):
         """Return all tiles from a specific column (vertical dimension)
             Params:
                 index integer

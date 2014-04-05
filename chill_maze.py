@@ -77,7 +77,7 @@ class ChillMaze(MazeAbstractBase):
         """
         return self._height
 
-    def get_row_tiles(self, index):
+    def get_tiles_in_row(self, index):
         """Return all tiles on a specific row (horizontal dimension)
             Params:
                 index: integer
@@ -93,7 +93,7 @@ class ChillMaze(MazeAbstractBase):
             raise IndexError("Invalid value, {} not a valid index for a row"
                              .format(index))
 
-    def get_column_tiles(self, index):
+    def get_tiles_in_column(self, index):
         """Return all tiles from a specific column (vertical dimension)
             Params:
                 index integer
@@ -121,7 +121,7 @@ class ChillMaze(MazeAbstractBase):
             Raises:
                 Index error if any of the provided indexes is not valid
         """
-        row = self.get_row_tiles(vertical_index)
+        row = self.get_tiles_in_row(vertical_index)
         try:
             row[horizontal_index]
         except IndexError:

@@ -47,14 +47,14 @@ class MazeTests(unittest.TestCase):
         intended_width = 5
 
         maze = self.maze_class(intended_width, intended_height)
-        self.assertEqual(intended_width, len(maze.get_row_tiles(0)))
+        self.assertEqual(intended_width, len(maze.get_tiles_in_row(0)))
 
     def test_getting_column_size_equals_height(self):
         intended_height = 3
         intended_width = 5
 
         maze = self.maze_class(intended_width, intended_height)
-        self.assertEqual(intended_height, len(maze.get_column_tiles(0)))
+        self.assertEqual(intended_height, len(maze.get_tiles_in_column(0)))
 
     def test_error_on_invalid_indexes(self):
         intended_height = 3
@@ -64,10 +64,10 @@ class MazeTests(unittest.TestCase):
 
         with self.assertRaises(IndexError):
             # They are 0 indexed, so this value is one over the actual height
-            maze.get_row_tiles(intended_height)
+            maze.get_tiles_in_row(intended_height)
 
         with self.assertRaises(IndexError):
-            maze.get_column_tiles(intended_width)
+            maze.get_tiles_in_column(intended_width)
 
     def test_error_on_invalid_tile_index(self):
         intended_height = 3
@@ -97,7 +97,7 @@ class MazeTests(unittest.TestCase):
                 reference_id = id(maze.get_tile_at(horizontal_index,
                                                    vertical_index))
                 #lets get the object via row
-                row = maze.get_row_tiles(vertical_index)
+                row = maze.get_tiles_in_row(vertical_index)
                 tile = row[horizontal_index]
                 self.assertEqual(reference_id,
                                  id(tile))

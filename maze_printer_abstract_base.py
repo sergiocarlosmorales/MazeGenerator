@@ -6,5 +6,8 @@ class MazePrinterAbstractBase:
 
     @abc.abstractmethod
     def print_maze(self, maze):
-        """Print the maze"""
+        """Print the maze, d'oh!
+            Params:
+                maze object that must conform to MazeAbstractBase
+        """
         return
