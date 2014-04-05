@@ -24,10 +24,3 @@ class TileTests(unittest.TestCase):
         tile = self.tile_class()
         with self.assertRaises(ValueError):
             tile.knock_wall("Tacos")
-
-
-def run_tile_tests():
-    unittest.main()
-
-if __name__ == '__main__':
-    run_tile_tests()

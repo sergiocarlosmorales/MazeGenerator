@@ -112,6 +112,15 @@ class ChillMaze(MazeAbstractBase):
                              .format(index))
 
     def get_tile_at(self, horizontal_index, vertical_index):
+        """Return the tile at a specific location
+            Params:
+                horizontal_index numeric index for the horizontal axis
+                vertical_index numeric index for the vertical axis
+            Returns:
+                A tile
+            Raises:
+                Index error if any of the provided indexes is not valid
+        """
         row = self.get_row_tiles(vertical_index)
         try:
             row[horizontal_index]
