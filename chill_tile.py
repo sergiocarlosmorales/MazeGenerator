@@ -45,7 +45,7 @@ class ChillTile(TileAbstractBase):
         elif location.capitalize() == "Right":
             self._wall_right = new_value
         else:
-            raise ValueError("Invalid wall location provided:{}"
+            raise ValueError("Invalid wall location provided: {}"
                              .format(location))
 
     def knock_wall(self, location):
@@ -61,3 +61,16 @@ class ChillTile(TileAbstractBase):
                 location: str containing the location of the wall to raise
         """
         return self._set_wall(location, True)
+
+    def is_wall_up(self, location):
+        if location.capitalize() == "Top":
+            return self._wall_top
+        elif location.capitalize() == "Bottom":
+            return self._wall_bottom
+        elif location.capitalize() == "Left":
+            return self._wall_left
+        elif location.capitalize() == "Right":
+            return self._wall_right
+        else:
+            raise ValueError("Invalid wall location provided: {}"
+                             .format(location))

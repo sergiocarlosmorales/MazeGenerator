@@ -24,3 +24,21 @@ class TileTests(unittest.TestCase):
         tile = self.tile_class()
         with self.assertRaises(ValueError):
             tile.knock_wall("Tacos")
+
+    def test_knocking_a_wall_actually_knocks_it(self):
+        wall_position = "Top"
+        tile = self.tile_class()
+        tile.knock_wall(wall_position)
+        self.assertFalse(tile.is_wall_up(wall_position))
+
+    def test_rebuilding_a_wall_actually_rebuilds_it(self):
+        wall_position = "Bottom"
+        tile = self.tile_class()
+        tile.knock_wall(wall_position)
+        tile.raise_wall(wall_position)
+        self.assertTrue(tile.is_wall_up(wall_position))
+
+    def test_retrieving_non_existent_wall_status_raises_error(self):
+        tile = self.tile_class()
+        with self.assertRaises(ValueError):
+            tile.is_wall_up("Waffles")

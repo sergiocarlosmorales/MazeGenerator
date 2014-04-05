@@ -29,3 +29,13 @@ class TileAbstractBase:
                 location: str containing the location of the wall to raise
         """
         return
+
+    @abc.abstractmethod
+    def is_wall_up(self, location):
+        """Determine if a wall is up or not at a given location
+            Params:
+                location: str containing the location of the wall to raise
+            Returns:
+                bool
+        """
+        return
