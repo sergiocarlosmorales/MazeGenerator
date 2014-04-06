@@ -28,8 +28,9 @@ class ChillMaze(MazeAbstractBase):
         # Initialize data
         self._width = width
         self._height = height
-        self._maze = []
         self._tile_class = tile_class
+        self._maze = []
+        self._neighborhood = {}
 
         # Time to actually initialize the tiles
         # Lets go through each row
@@ -56,6 +57,8 @@ class ChillMaze(MazeAbstractBase):
                                          intended_height=height
                                          ))
 
+        self._set_tile_neighbors_relationship()
+
     def has_been_generated(self):
         """Determine whether or not this maze has been generated and has tiles
             Returns: bool
@@ -79,10 +82,11 @@ class ChillMaze(MazeAbstractBase):
 
     def get_tiles_in_row(self, index):
         """Return all tiles on a specific row (horizontal dimension)
+            !!!Remember that tile indexing is 0,0 at the top left corner!!!
             Params:
                 index: integer
             Returns:
-                List of tiles
+                List of tiles (TileAbstractBase)
             Raises:
                 IndexError: If supplied index is invalid
         """
@@ -98,7 +102,7 @@ class ChillMaze(MazeAbstractBase):
             Params:
                 index integer
             Returns:
-                List of tiles
+                List of tiles (TileAbstractBase)
             Raises:
                 IndexError: If supplied index is invalid
         """
@@ -112,19 +116,153 @@ class ChillMaze(MazeAbstractBase):
                              .format(index))
 
     def get_tile_at(self, horizontal_index, vertical_index):
-        """Return the tile at a specific location
+        """Return the tile at a specific location (x,y)
             Params:
                 horizontal_index numeric index for the horizontal axis
                 vertical_index numeric index for the vertical axis
             Returns:
-                A tile
+                A TileAbstractBase
             Raises:
                 Index error if any of the provided indexes is not valid
         """
         row = self.get_tiles_in_row(vertical_index)
         try:
-            row[horizontal_index]
+            tile = row[horizontal_index]
         except IndexError:
             raise IndexError("Invalid position: {horizontal},{vertical}"
                              .format(horizontal=horizontal_index,
                                      vertical=vertical_index))
+        return tile
+
+    def _set_tile_neighbors_relationship(self):
+        """Initialize data to determine tile neighbors
+
+        This sets the data so we later can determine the neighbor of a tile
+        It iterates over every tile and then saves data in an internal dict
+
+        If a tile is at the border of a maze, it sets None as its neighbor
+        """
+        for vertical_index in range(self.get_height()):
+            for horizontal_index in range(self.get_width()):
+                current_tile = self.get_tile_at(horizontal_index,
+                                                vertical_index)
+
+                # North neighbor
+                north_neighbor = None
+                if vertical_index > 0:
+                    north_neighbor = self.get_tile_at(horizontal_index,
+                                                      vertical_index-1)
+
+                # East neighbor
+                east_neighbor = None
+                if horizontal_index < self.get_width()-1:
+                    east_neighbor = self.get_tile_at(horizontal_index+1,
+                                                     vertical_index)
+
+                # South neighbor
+                south_neighbor = None
+                if vertical_index < self.get_height()-1:
+                    south_neighbor = self.get_tile_at(horizontal_index,
+                                                      vertical_index+1)
+
+                # West neighbor
+                west_neighbor = None
+                if horizontal_index > 0:
+                    west_neighbor = self.get_tile_at(horizontal_index-1,
+                                                     vertical_index)
+
+                self._save_tile_neighbors_relationship(current_tile,
+                                                       north_neighbor,
+                                                       east_neighbor,
+                                                       south_neighbor,
+                                                       west_neighbor)
+
+    def _save_tile_neighbors_relationship(self, reference_tile,
+                                          north_neighbor,
+                                          east_neighbor,
+                                          south_neighbor,
+                                          west_neighbor):
+        """Save in our internal dictionary a tile neighbors
+            Each entry in our dictionary is in the form:
+            {tile: [north_tile, east_tile, south_tile, west_tile]}
+
+            Params:
+                reference_tile: TileAbstractBase for which we are saving the
+                               the actual neighbor data
+                north_neighbor: TileAbstractBase located at the north
+                east_neighbor: TileAbstractBase located at the east
+                south_neighbor: TileAbstractBase located at the south
+                west_neighbor: TileAbstractBase located at the west
+
+        """
+        self._neighborhood[reference_tile] = [north_neighbor,
+                                              east_neighbor,
+                                              south_neighbor,
+                                              west_neighbor]
+
+    def _get_tile_neighbor(self, tile, neighbor_position):
+        """Internal function to retrieve a tile neighbor
+            Params:
+                tile: TileAbstractBase for which we want to get the neighbor
+                neighbor_position: str containing the location of the neighbor
+            Returns:
+                TileAbstractBase
+            Raises:
+                KeyError: If neighbor position provided is invalid
+        """
+        relationship_index = None
+        if neighbor_position.capitalize() == "North":
+            relationship_index = 0
+        elif neighbor_position.capitalize() == "East":
+            relationship_index = 1
+        elif neighbor_position.capitalize() == "South":
+            relationship_index = 2
+        elif neighbor_position.capitalize() == "West":
+            relationship_index = 3
+
+        #Check we have a valid position to search for
+        if relationship_index is None:
+            raise ValueError("{} is not a valid neighbor position"
+                             .format(neighbor_position))
+        try:
+            return self._neighborhood[tile][relationship_index]
+        except KeyError:
+            raise ValueError("No neighbor data found for tile")
+
+    def get_tile_north_neighbor(self, tile):
+        """Return the north neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase
+        """
+        return self._get_tile_neighbor(tile, "North")
+
+    def get_tile_east_neighbor(self, tile):
+        """Return the east neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase
+        """
+        return self._get_tile_neighbor(tile, "East")
+
+    def get_tile_south_neighbor(self, tile):
+        """Return the south neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase
+        """
+        return self._get_tile_neighbor(tile, "South")
+
+    def get_tile_west_neighbor(self, tile):
+        """Return the west neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase
+        """
+        return self._get_tile_neighbor(tile, "West")
+
+    # TODO: Implement knock wall for tile, which tackles walls on tile neighbor

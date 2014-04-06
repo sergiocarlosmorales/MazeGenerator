@@ -3,20 +3,20 @@ from tile_abstract_base import TileAbstractBase
 
 class ChillTile(TileAbstractBase):
     # Flags to indicate if a given wall is up
-    _wall_top = None
-    _wall_bottom = None
-    _wall_right = None
-    _wall_left = None
+    _wall_north = None
+    _wall_south = None
+    _wall_east = None
+    _wall_west = None
 
     def __init__(self):
         """
         Initializer of a tile
         """
         # Build all walls
-        self._set_wall("Top", True)
-        self._set_wall("Right", True)
-        self._set_wall("Bottom", True)
-        self._set_wall("Left", True)
+        self._set_wall("North", True)
+        self._set_wall("East", True)
+        self._set_wall("South", True)
+        self._set_wall("West", True)
 
     def are_all_walls_up(self):
         """Determine whether or not: all walls are up
@@ -25,8 +25,8 @@ class ChillTile(TileAbstractBase):
             Returns:
                 bool
         """
-        return self._wall_bottom and self._wall_left and \
-            self._wall_right and self._wall_top
+        return self._wall_south and self._wall_west and \
+            self._wall_east and self._wall_north
 
     def _set_wall(self, location, new_value):
         """Set a wall to a specified value
@@ -36,14 +36,14 @@ class ChillTile(TileAbstractBase):
             Raises:
                 ValueError if location param is not a valid location for a wall
         """
-        if location.capitalize() == "Top":
-            self._wall_top = new_value
-        elif location.capitalize() == "Bottom":
-            self._wall_bottom = new_value
-        elif location.capitalize() == "Left":
-            self._wall_left = new_value
-        elif location.capitalize() == "Right":
-            self._wall_right = new_value
+        if location.capitalize() == "North":
+            self._wall_north = new_value
+        elif location.capitalize() == "South":
+            self._wall_south = new_value
+        elif location.capitalize() == "West":
+            self._wall_west = new_value
+        elif location.capitalize() == "East":
+            self._wall_east = new_value
         else:
             raise ValueError("Invalid wall location provided: {}"
                              .format(location))
@@ -63,14 +63,14 @@ class ChillTile(TileAbstractBase):
         return self._set_wall(location, True)
 
     def is_wall_up(self, location):
-        if location.capitalize() == "Top":
-            return self._wall_top
-        elif location.capitalize() == "Bottom":
-            return self._wall_bottom
-        elif location.capitalize() == "Left":
-            return self._wall_left
-        elif location.capitalize() == "Right":
-            return self._wall_right
+        if location.capitalize() == "North":
+            return self._wall_north
+        elif location.capitalize() == "South":
+            return self._wall_south
+        elif location.capitalize() == "West":
+            return self._wall_west
+        elif location.capitalize() == "East":
+            return self._wall_east
         else:
             raise ValueError("Invalid wall location provided: {}"
                              .format(location))

@@ -1,6 +1,7 @@
 import abc
 from tile_abstract_base import TileAbstractBase
 
+
 class MazeAbstractBase:
     __metaclass__ = abc.ABCMeta
 
@@ -70,8 +71,48 @@ class MazeAbstractBase:
                 horizontal_index numeric index for the horizontal axis
                 vertical_index numeric index for the vertical axis
             Returns:
-                A tile
+                A tile TileAbstractBase
             Raises:
                 Index error if any of the provided indexes is not valid
+        """
+        return
+
+    @abc.abstractmethod
+    def get_tile_north_neighbor(self, tile):
+        """Return the north neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase|None
+        """
+        return
+
+    @abc.abstractmethod
+    def get_tile_east_neighbor(self, tile):
+        """Return the east neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase|None
+        """
+        return
+
+    @abc.abstractmethod
+    def get_tile_south_neighbor(self, tile):
+        """Return the south neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase|None
+        """
+        return
+
+    @abc.abstractmethod
+    def get_tile_west_neighbor(self, tile):
+        """Return the west neighbor of a tile
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                TileAbstractBase|None
         """
         return

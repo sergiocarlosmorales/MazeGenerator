@@ -23,6 +23,7 @@ def run_tile_tests():
     tile_classes = [ChillTile]
     for tile_class in tile_classes:
         TileTests.tile_class = tile_class
+        print("Running tile tests for: {}\n".format(tile_class.__name__))
         run_tests_wrapper(TileTests)
 
 
@@ -32,6 +33,7 @@ def run_maze_tests():
     maze_classes = [ChillMaze]
     for maze_class in maze_classes:
         MazeTests.maze_class = maze_class
+        print("Running maze tests for: {}\n".format(maze_class.__name__))
         run_tests_wrapper(MazeTests)
 
 
