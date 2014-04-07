@@ -100,7 +100,7 @@ class MazeTests(unittest.TestCase):
                 self.assertEqual(reference_tile, column[vertical_index])
 
     def test_neighborhood_mapping(self):
-        maze = self.maze_class(3,3)
+        maze = self.maze_class(3, 3)
 
         # Lets use the center tile as reference
         center_tile = maze.get_tile_at(1, 1)
@@ -137,3 +137,35 @@ class MazeTests(unittest.TestCase):
                          None)
         self.assertEqual(maze.get_tile_south_neighbor(bottom_right_tile),
                          None)
+
+    def test_tile_connection_knocks_respective_tile_walls(self):
+        maze = self.maze_class(3, 3)
+        center_tile = maze.get_tile_at(1, 1)
+
+        # Connect center tile with its north neighbor
+        maze.connect_tiles(center_tile,
+                           maze.get_tile_north_neighbor(center_tile))
+        self.assertFalse(center_tile.is_wall_up("North"))
+        self.assertFalse(maze.get_tile_north_neighbor(center_tile)
+                         .is_wall_up("South"))
+
+        # Connect center tile with its east neighbor
+        maze.connect_tiles(center_tile,
+                           maze.get_tile_east_neighbor(center_tile))
+        self.assertFalse(center_tile.is_wall_up("East"))
+        self.assertFalse(maze.get_tile_east_neighbor(center_tile)
+                         .is_wall_up("West"))
+
+        # Connect center tile with its south neighbor
+        maze.connect_tiles(center_tile,
+                           maze.get_tile_south_neighbor(center_tile))
+        self.assertFalse(center_tile.is_wall_up("South"))
+        self.assertFalse(maze.get_tile_south_neighbor(center_tile)
+                         .is_wall_up("North"))
+
+        # Connect center tile with its west neighbor
+        maze.connect_tiles(center_tile,
+                           maze.get_tile_west_neighbor(center_tile))
+        self.assertFalse(center_tile.is_wall_up("West"))
+        self.assertFalse(maze.get_tile_west_neighbor(center_tile)
+                         .is_wall_up("East"))

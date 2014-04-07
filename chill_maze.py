@@ -265,4 +265,33 @@ class ChillMaze(MazeAbstractBase):
         """
         return self._get_tile_neighbor(tile, "West")
 
-    # TODO: Implement knock wall for tile, which tackles walls on tile neighbor
+    def connect_tiles(self, tile_1, tile_2):
+        """Connect two neighbor tiles (knocks appropriate walls)
+            Params:
+                tile_1: TileAbstractBase
+                tile_2: TileAbstractBase
+            Raises:
+                ValueError if tiles are not neighbors
+        """
+        if self.get_tile_north_neighbor(tile_1) == tile_2:
+            # tile_2 is north of tile_1, knock tile_2 south wall
+            # and tile_1 north wall
+            tile_1.knock_wall("North")
+            tile_2.knock_wall("South")
+        elif self.get_tile_east_neighbor(tile_1) == tile_2:
+            # tile_2 is east of tile_1, knock tile_2 west wall
+            # and tile_1 east wall
+            tile_1.knock_wall("East")
+            tile_2.knock_wall("West")
+        elif self.get_tile_south_neighbor(tile_1) == tile_2:
+            # tile_2 is south of tile_1, knock tile_2 north wall
+            # and tile_1 south wall
+            tile_1.knock_wall("South")
+            tile_2.knock_wall("North")
+        elif self.get_tile_west_neighbor(tile_1) == tile_2:
+            # tile_2 is west of tile_1, knock tile_2 east wall
+            # and tile_1 west wall
+            tile_1.knock_wall("West")
+            tile_2.knock_wall("East")
+        else:
+            raise ValueError("Tiles are not neighbors")

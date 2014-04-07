@@ -52,17 +52,29 @@ class ChillTile(TileAbstractBase):
         """Knock the wall on a given location
             Params:
                 location: str containing the location of the wall to knock
+            Raises:
+                ValueError if location param is not a valid location for a wall
         """
         return self._set_wall(location, False)
 
     def raise_wall(self, location):
-        """Rase the wall on a given location
+        """Raise the wall on a given location
             Params:
                 location: str containing the location of the wall to raise
+            Raises:
+                ValueError if location param is not a valid location for a wall
         """
         return self._set_wall(location, True)
 
     def is_wall_up(self, location):
+        """Determine if a wall is up or not at a given location
+            Params:
+                location: str containing the location of the wall to raise
+            Returns:
+                bool
+            Raises:
+                ValueError if location param is not a valid location for a wall
+        """
         if location.capitalize() == "North":
             return self._wall_north
         elif location.capitalize() == "South":

@@ -116,3 +116,13 @@ class MazeAbstractBase:
                 TileAbstractBase|None
         """
         return
+
+    @abc.abstractmethod
+    def connect_tiles(self, tile_1, tile_2):
+        """Connect two neighbor tiles (knocks appropriate walls)
+            Params:
+                tile_1: TileAbstractBase
+                tile_2: TileAbstractBase
+            Raises:
+                ValueError if tiles are not neighbors
+        """

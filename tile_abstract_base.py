@@ -19,14 +19,18 @@ class TileAbstractBase:
         """Knock the wall on a given location
             Params:
                 location: str containing the location of the wall to knock
+            Raises:
+                ValueError if location param is not a valid location for a wall
         """
         return
 
     @abc.abstractmethod
     def raise_wall(self, location):
-        """Rase the wall on a given location
+        """Raise the wall on a given location
             Params:
                 location: str containing the location of the wall to raise
+            Raises:
+                ValueError if location param is not a valid location for a wall
         """
         return
 
@@ -37,5 +41,7 @@ class TileAbstractBase:
                 location: str containing the location of the wall to raise
             Returns:
                 bool
+            Raises:
+                ValueError if location param is not a valid location for a wall
         """
         return
