@@ -295,3 +295,34 @@ class ChillMaze(MazeAbstractBase):
             tile_2.knock_wall("East")
         else:
             raise ValueError("Tiles are not neighbors")
+
+    def are_tiles_connected(self, tile_1, tile_2):
+        """Determine whether two tiles are connected
+            Params:
+                tile_1: TileAbstractBase
+                tile_2: TileAbstractBase
+            Returns:
+                Bool
+        """
+        if self.get_tile_north_neighbor(tile_1) == tile_2:
+            # tile_2 is north of tile_1, check tile_2 south wall
+            # and tile_1 north wall
+            return not tile_2.is_wall_up("South") \
+                and not tile_1.is_wall_up("North")
+        elif self.get_tile_east_neighbor(tile_1) == tile_2:
+            # tile_2 is east of tile_1, check tile_2 west wall
+            # and tile_1 east wall
+            return not tile_2.is_wall_up("West") \
+                and not tile_1.is_wall_up("East")
+        elif self.get_tile_south_neighbor(tile_1) == tile_2:
+            # tile_2 is south of tile_1, check tile_2 north wall
+            # and tile_1 south wall
+            return not tile_2.is_wall_up("North") \
+                and not tile_1.is_wall_up("South")
+        elif self.get_tile_west_neighbor(tile_1) == tile_2:
+            # tile_2 is west of tile_1, check tile_2 east wall
+            # and tile_1 west wall
+            return not tile_2.is_wall_up("East") \
+                and not tile_1.is_wall_up("West")
+        else:
+            return False

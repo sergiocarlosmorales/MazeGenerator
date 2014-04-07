@@ -126,3 +126,15 @@ class MazeAbstractBase:
             Raises:
                 ValueError if tiles are not neighbors
         """
+        return
+
+    @abc.abstractmethod
+    def are_tiles_connected(self, tile_1, tile_2):
+        """Determine whether two tiles are connected
+            Params:
+                tile_1: TileAbstractBase
+                tile_2: TileAbstractBase
+            Returns:
+                Bool
+        """
+        return

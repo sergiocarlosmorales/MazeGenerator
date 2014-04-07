@@ -138,34 +138,89 @@ class MazeTests(unittest.TestCase):
         self.assertEqual(maze.get_tile_south_neighbor(bottom_right_tile),
                          None)
 
-    def test_tile_connection_knocks_respective_tile_walls(self):
+    def test_tiles_connection(self):
         maze = self.maze_class(3, 3)
         center_tile = maze.get_tile_at(1, 1)
 
         # Connect center tile with its north neighbor
+        self.assertFalse(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_north_neighbor(center_tile)
+            )
+        )
         maze.connect_tiles(center_tile,
                            maze.get_tile_north_neighbor(center_tile))
-        self.assertFalse(center_tile.is_wall_up("North"))
-        self.assertFalse(maze.get_tile_north_neighbor(center_tile)
-                         .is_wall_up("South"))
+        self.assertTrue(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_north_neighbor(center_tile)
+            )
+        )
 
         # Connect center tile with its east neighbor
+        self.assertFalse(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_east_neighbor(center_tile)
+            )
+        )
         maze.connect_tiles(center_tile,
                            maze.get_tile_east_neighbor(center_tile))
-        self.assertFalse(center_tile.is_wall_up("East"))
-        self.assertFalse(maze.get_tile_east_neighbor(center_tile)
-                         .is_wall_up("West"))
+        self.assertTrue(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_east_neighbor(center_tile)
+            )
+        )
 
         # Connect center tile with its south neighbor
+        self.assertFalse(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_south_neighbor(center_tile)
+            )
+        )
         maze.connect_tiles(center_tile,
                            maze.get_tile_south_neighbor(center_tile))
-        self.assertFalse(center_tile.is_wall_up("South"))
-        self.assertFalse(maze.get_tile_south_neighbor(center_tile)
-                         .is_wall_up("North"))
+        self.assertTrue(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_south_neighbor(center_tile)
+            )
+        )
 
         # Connect center tile with its west neighbor
+        self.assertFalse(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_west_neighbor(center_tile)
+            )
+        )
         maze.connect_tiles(center_tile,
                            maze.get_tile_west_neighbor(center_tile))
-        self.assertFalse(center_tile.is_wall_up("West"))
-        self.assertFalse(maze.get_tile_west_neighbor(center_tile)
-                         .is_wall_up("East"))
+        self.assertTrue(
+            maze.are_tiles_connected(
+                center_tile,
+                maze.get_tile_west_neighbor(center_tile)
+            )
+        )
+
+    def test_separate_tiles_cant_be_connected(self):
+        maze = self.maze_class(3, 3)
+        upper_left_tile = maze.get_tile_at(0, 0)
+        lower_right_tile = maze.get_tile_at(2, 2)
+
+        # Test with varying tile order just to be sure it does not
+        # affect our result
+        with self.assertRaises(ValueError):
+            maze.connect_tiles(upper_left_tile,
+                               lower_right_tile)
+        with self.assertRaises(ValueError):
+            maze.connect_tiles(lower_right_tile,
+                               upper_left_tile)
+
+        self.assertFalse(maze.are_tiles_connected(upper_left_tile,
+                                                  lower_right_tile))
+        self.assertFalse(maze.are_tiles_connected(lower_right_tile,
+                                                  upper_left_tile))
