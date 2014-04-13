@@ -28,37 +28,20 @@ class MazePrinterText(MazePrinterAbstractBase):
             for horizontal_index, tile in enumerate(tiles):
                 # west wall only appears on first (0) column
                 if horizontal_index == 0:
-                    should_display_west_wall = True
-                else:
-                    should_display_west_wall = False
-
-                if tile.is_wall_up("North") and should_display_west_wall and \
-                        tile.is_wall_up("West"):
-                            row_print_data += self.wall_character
-                else:
-                    if should_display_west_wall:
-                        row_print_data += self.empty_character
+                    row_print_data += self.wall_character
 
                 if tile.is_wall_up("North"):
                     row_print_data += self.wall_character
                 else:
                     row_print_data += self.empty_character
 
-                if tile.is_wall_up("East"):
-                    row_print_data += self.wall_character
-                else:
-                    row_print_data += self.empty_character
+                row_print_data += self.wall_character
 
             row_print_data += self.new_line
 
         # level 2
         for horizontal_index, tile in enumerate(tiles):
             if horizontal_index == 0:
-                should_display_west_wall = True
-            else:
-                should_display_west_wall = False
-
-            if should_display_west_wall:
                 if tile.is_wall_up("West"):
                     row_print_data += self.wall_character
                 else:
@@ -76,24 +59,13 @@ class MazePrinterText(MazePrinterAbstractBase):
         # level 3
         for horizontal_index, tile in enumerate(tiles):
             if horizontal_index == 0:
-                should_display_west_wall = True
-            else:
-                should_display_west_wall = False
-
-            if should_display_west_wall:
-                if tile.is_wall_up("West") and tile.is_wall_up("South"):
-                    row_print_data += self.wall_character
-                else:
-                    row_print_data += self.empty_character
+                row_print_data += self.wall_character
 
             if tile.is_wall_up("South"):
                 row_print_data += self.wall_character
             else:
                 row_print_data += self.empty_character
 
-            if tile.is_wall_up("East"):
-                row_print_data += self.wall_character
-            else:
-                row_print_data += self.empty_character
+            row_print_data += self.wall_character
 
         return row_print_data
