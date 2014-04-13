@@ -1,9 +1,8 @@
 from maze_printer_abstract_base import MazePrinterAbstractBase
 from maze_abstract_base import MazeAbstractBase
-from chill_maze import ChillMaze
 
 
-class ChillMazePrinterText(MazePrinterAbstractBase):
+class MazePrinterText(MazePrinterAbstractBase):
     debug_mode = True
     wall_character = "*"
     empty_character = " "
@@ -20,20 +19,18 @@ class ChillMazePrinterText(MazePrinterAbstractBase):
         row_print_data = ""
 
         # level 1
-        for horizontal_index, tile in enumerate(tiles):
+        if vertical_index == 0:
+            should_display_north_wall = True
+        else:
+            should_display_north_wall = False
 
-            if vertical_index == 0:
-                should_display_north_wall = True
-            else:
-                should_display_north_wall = False
+        if should_display_north_wall:
+            for horizontal_index, tile in enumerate(tiles):
+                if horizontal_index == 0:
+                    should_display_west_wall = True
+                else:
+                    should_display_west_wall = False
 
-            if horizontal_index == 0:
-                should_display_west_wall = True
-            else:
-                should_display_west_wall = False
-
-            # level 1
-            if should_display_north_wall:
                 if tile.is_wall_up("North") and should_display_west_wall and \
                         tile.is_wall_up("West"):
                             row_print_data += self.wall_character
@@ -51,7 +48,7 @@ class ChillMazePrinterText(MazePrinterAbstractBase):
                 else:
                     row_print_data += self.empty_character
 
-        row_print_data += self.new_line
+            row_print_data += self.new_line
 
         # level 2
         for horizontal_index, tile in enumerate(tiles):
@@ -100,13 +97,3 @@ class ChillMazePrinterText(MazePrinterAbstractBase):
                 row_print_data += self.empty_character
 
         return row_print_data
-
-
-def main():
-    maze = ChillMaze(3, 3)
-    printer = ChillMazePrinterText()
-    printer.maze = maze
-    printer.print_maze()
-
-if __name__ == '__main__':
-    main()

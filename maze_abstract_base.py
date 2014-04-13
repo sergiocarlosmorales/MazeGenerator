@@ -6,20 +6,6 @@ class MazeAbstractBase:
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def __init__(self, width, height, tile_class=TileAbstractBase):
-        """Initialization logic for the maze
-            Params:
-                width: numeric value for the grid width of the maze
-                height: numeric value for the gird height of the maze
-                tile_class: class to be used for tiles, one must be provided
-                            by default
-            Raises:
-                ValueError: If width or height cannot be numerically
-                            interpreted and are not greater than zero
-        """
-        return
-
-    @abc.abstractmethod
     def has_been_generated(self):
         """Determine whether or not this maze has been generated and has tiles
             Returns: bool

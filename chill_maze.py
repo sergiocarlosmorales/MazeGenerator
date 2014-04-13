@@ -13,7 +13,6 @@ class ChillMaze(MazeAbstractBase):
                 ValueError: If width or height cannot be numerically
                             interpreted and are not greater than zero
         """
-        super().__init__(width, height, tile_class)
         try:
             width = int(width)
             height = int(height)
