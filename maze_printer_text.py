@@ -3,29 +3,30 @@ from maze_abstract_base import MazeAbstractBase
 
 
 class MazePrinterText(MazePrinterAbstractBase):
-    debug_mode = True
     wall_character = "*"
     empty_character = " "
     new_line = "\n"
     maze = MazeAbstractBase
 
+    def __init__(self, maze):
+        self.maze = maze
+        pass
+
     def print_maze(self):
+        """Do the main work of printing a maze
+        """
         for vertical_index in range(self.maze.get_height()):
             tiles = self.maze.get_tiles_in_row(vertical_index)
-            tiles_print_data = self.get_row_print_data(tiles, vertical_index)
+            tiles_print_data = self._get_row_print_data(tiles, vertical_index)
             print(tiles_print_data)
 
-    def get_row_print_data(self, tiles, vertical_index):
+    def _get_row_print_data(self, tiles, vertical_index):
         row_print_data = ""
 
-        # level 1
+        # level 1 (only appears on first (0) row)
         if vertical_index == 0:
-            should_display_north_wall = True
-        else:
-            should_display_north_wall = False
-
-        if should_display_north_wall:
             for horizontal_index, tile in enumerate(tiles):
+                # west wall only appears on first (0) column
                 if horizontal_index == 0:
                     should_display_west_wall = True
                 else:
@@ -52,7 +53,6 @@ class MazePrinterText(MazePrinterAbstractBase):
 
         # level 2
         for horizontal_index, tile in enumerate(tiles):
-
             if horizontal_index == 0:
                 should_display_west_wall = True
             else:
