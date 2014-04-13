@@ -104,6 +104,18 @@ class MazeAbstractBase:
         return
 
     @abc.abstractmethod
+    def get_tile_neighbors(self, tile):
+        """Return all neighbors for a tile
+            This will not always return 4 tiles, a tile may not have a neighbor
+            and will not be included in the return list
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                List of TileAbstractBase
+        """
+        return
+
+    @abc.abstractmethod
     def connect_tiles(self, tile_1, tile_2):
         """Connect two neighbor tiles (knocks appropriate walls)
             Params:

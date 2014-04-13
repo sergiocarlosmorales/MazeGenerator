@@ -1,13 +1,14 @@
 from chill_maze import ChillMaze
 from maze_printer_text import MazePrinterText
+from chill_maze_generator import ChillMazeGenerator
 
 
 def main():
-    maze = ChillMaze(3, 3)
-    tile1 = maze.get_tile_at(0, 0)
-    tile2 = maze.get_tile_at(1, 0)
-    maze.connect_tiles(tile1, tile2)
-    printer = MazePrinterText(maze)
+    maze = ChillMaze(9, 9)
+    generator = ChillMazeGenerator(maze)
+    generator.generate_perfect_maze()
+
+    printer = MazePrinterText(generator.maze)
     printer.print_maze()
 
 if __name__ == "__main__":

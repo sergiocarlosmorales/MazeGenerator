@@ -224,3 +224,29 @@ class MazeTests(unittest.TestCase):
                                                   lower_right_tile))
         self.assertFalse(maze.are_tiles_connected(lower_right_tile,
                                                   upper_left_tile))
+
+    def test_get_neighbors_for_center_tile(self):
+        maze = self.maze_class(3, 3)
+        center_tile = maze.get_tile_at(1, 1)
+        center_tile_neighbors = maze.get_tile_neighbors(center_tile)
+        # north, east, south, west
+        self.assertEqual(4, len(center_tile_neighbors))
+        # north
+        self.assertTrue(maze.get_tile_at(1, 0) in center_tile_neighbors)
+        # east
+        self.assertTrue(maze.get_tile_at(2, 1) in center_tile_neighbors)
+        # south
+        self.assertTrue(maze.get_tile_at(1, 2) in center_tile_neighbors)
+        # west
+        self.assertTrue(maze.get_tile_at(0, 1) in center_tile_neighbors)
+
+    def test_get_neighbors_for_corner_tile(self):
+        maze = self.maze_class(3, 3)
+        corner_tile = maze.get_tile_at(0, 0)
+        corner_tile_neighbors = maze.get_tile_neighbors(corner_tile)
+        # east and south
+        self.assertEqual(2, len(corner_tile_neighbors))
+        # east
+        self.assertTrue(maze.get_tile_at(1, 0) in corner_tile_neighbors)
+        # south
+        self.assertTrue(maze.get_tile_at(0, 1) in corner_tile_neighbors)

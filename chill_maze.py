@@ -264,6 +264,35 @@ class ChillMaze(MazeAbstractBase):
         """
         return self._get_tile_neighbor(tile, "West")
 
+    def get_tile_neighbors(self, tile):
+        """Return all neighbors for a tile
+            This will not always return 4 tiles, a tile may not have a neighbor
+            and will not be included in the return list
+            Params:
+                tile: TileAbstractBase
+            Returns:
+                List of TileAbstractBase
+        """
+        neighbors = []
+
+        north_neighbor = self.get_tile_north_neighbor(tile)
+        if north_neighbor is not None:
+            neighbors.append(north_neighbor)
+
+        east_neighbor = self.get_tile_east_neighbor(tile)
+        if east_neighbor is not None:
+            neighbors.append(east_neighbor)
+
+        south_neighbor = self.get_tile_south_neighbor(tile)
+        if south_neighbor is not None:
+            neighbors.append(south_neighbor)
+
+        west_neighbor = self.get_tile_west_neighbor(tile)
+        if west_neighbor is not None:
+            neighbors.append(west_neighbor)
+
+        return neighbors
+
     def connect_tiles(self, tile_1, tile_2):
         """Connect two neighbor tiles (knocks appropriate walls)
             Params:
