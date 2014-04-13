@@ -5,7 +5,7 @@ Our objective here is to create a maze generation framework, a perfect maze: the
 
 ![alt tag](http://mazeworks.com/mazegen/mazetut/tut1.gif)    -   ![alt tag](http://mazeworks.com/mazegen/mazetut/tut2.gif)
 
-Images from: http://mazeworks.com
+Credit: http://mazeworks.com
 
 Framework
 =============
